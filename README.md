@@ -1,2 +1,5 @@
-# OPENCV_BASICS
-Simple projects with the basics of Computer Vision with OpenCV Library
+# OPENCV BASIC PROJECTS :camera:
+Simple projects with Computer Vision with OpenCV Library
+
+## Author
+Santiago Garcia Arango
