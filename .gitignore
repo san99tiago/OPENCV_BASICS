@@ -1,2 +1,5 @@
-#Ignore the virtual environment for Python
+#ignore the virtual environment for Python
 venv
+
+#ignore the default vscode folders for settings
+.vscode
