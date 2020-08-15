@@ -1,5 +1,12 @@
-#ignore the virtual environment for Python
+# Ignore the virtual environment for Python
 venv
 
-#ignore the default vscode folders for settings
+# Ignore the default vscode folders for settings
 .vscode
+
+# Ignore auto-generated Python cache
+__cache__
+
+# Ignore auto-saved files
+*.asv
+
