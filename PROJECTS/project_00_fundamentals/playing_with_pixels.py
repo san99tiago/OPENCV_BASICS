@@ -1,13 +1,12 @@
 # PLAYING WITH PIXELS IN IN OPENCV
 # Santiago Garcia Arango, August 2020
 
-import numpy as np
 import cv2 as cv
 import os
 
 # Get the path for the folder that contains the images
 upper_dir = os.path.dirname(os.path.dirname(__file__))  # Two dirs up
-img_folder_path =  os.path.abspath(os.path.join(upper_dir, "imgs"))
+img_folder_path = os.path.abspath(os.path.join(upper_dir, "imgs"))
 print("\nPATH TO IMAGES: ", img_folder_path)
 
 # Get specific path to images with their names
@@ -18,9 +17,9 @@ imgColor = cv.imread(path_delfin, 1)
 imgGray = cv.imread(path_delfin, 2)
 
 # Change size of the images
-imgGray = cv.resize(imgGray, (20,20))
+imgGray = cv.resize(imgGray, (20, 20))
 
-h,w = imgColor.shape[:2]  # Get the shape of the image (height, width, c)
+h, w = imgColor.shape[:2]  # Get the shape of the image (height, width, c)
 print("Height of image: ", h)
 print("Width of image: ", w)
 
