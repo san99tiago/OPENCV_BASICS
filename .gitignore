@@ -5,7 +5,7 @@ venv
 .vscode
 
 # Ignore auto-generated Python cache
-__cache__
+__pycache__
 
 # Ignore auto-saved files
 *.asv
