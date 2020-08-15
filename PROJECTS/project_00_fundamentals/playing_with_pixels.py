@@ -5,7 +5,7 @@ import cv2 as cv
 import os
 
 # Get the path for the folder that contains the images
-upper_dir = os.path.dirname(os.path.dirname(__file__))  # Two dirs up
+upper_dir = os.path.dirname(__file__)  # Upper dir
 img_folder_path = os.path.abspath(os.path.join(upper_dir, "imgs"))
 print("\nPATH TO IMAGES: ", img_folder_path)
 
