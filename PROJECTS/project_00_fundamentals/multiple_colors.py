@@ -33,6 +33,13 @@ for i in range(0, h):
         green_copy[i, j] = [0, imgColor[i, j][1], 0]  # Only save Green data
         red_copy[i, j] = [0, 0, imgColor[i, j][2]]  # Only save Red data
 
+# Better solution would be:
+imgB = imgColor.copy()
+imgB[:, :, 1] = 0
+imgB[:, :, 2] = 0
+
+cv.imshow("BLUE BEST WAY", imgB)
+
 cv.imshow("My color image", imgColor)
 cv.imshow("My blue copy", blue_copy)
 cv.imshow("My red copy", red_copy)
