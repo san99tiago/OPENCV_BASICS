@@ -77,19 +77,17 @@ def main():
     cv.putText(img, "Select the images in squares!", (30, 30),
         cv.FONT_HERSHEY_COMPLEX_SMALL, 0.9, (0, 0, 0), 1)
 
-
     while (True):
         # Exit
         if (cv.waitKey(1) & 0xFF == ord("q")):
+            cv.destroyAllWindows()
             break
 
         # Keep showing images
         cv.imshow("MyMouseClick", img)
 
 
-
 if __name__ == "__main__":
     main()
     cv.waitKey(0)
     cv.destroyAllWindows()  # (always at the end)
-
