@@ -11,6 +11,8 @@ import sol_2_B
 import sol_3
 import sol_4
 import sol_5
+import sol_6_A
+import sol_6_B
 
 
 TITLE = "SOLUTIONS"
@@ -20,7 +22,7 @@ FONT_2 = ("Times New Roman",14,"bold")
 
 root = tk.Tk()
 root.title("{} : san99tiago".format(TITLE))
-root.geometry("600x400")
+root.geometry("720x540")
 root.configure(bg = "black")
 
 text_0 = tk.Label(root, text="Santiago Garcia Arango", font=FONT_1, bg="black", fg="white")
@@ -110,6 +112,32 @@ def solution_5():
 
 b_5 = ttk.Button(root, text="SOL 5", command=solution_5)
 b_5.grid(row=8, column=1)
+
+
+# Solution 6 A
+text_6_A = tk.Label(root, text="Sol 6 A:", font=FONT_2, bg="black", fg="white")
+text_6_A.grid(row=9, column=0, padx=50, pady=5, sticky="w")
+
+def solution_6_A():
+    sol_6_A.main()
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+b_6_A = ttk.Button(root, text="SOL 6 A", command=solution_6_A)
+b_6_A.grid(row=9, column=1)
+
+
+# Solution 6 B
+text_6_B = tk.Label(root, text="Sol 6 B:", font=FONT_2, bg="black", fg="white")
+text_6_B.grid(row=10, column=0, padx=50, pady=5, sticky="w")
+
+def solution_6_B():
+    sol_6_B.main()
+    cv.waitKey(0)
+    cv.destroyAllWindows()
+
+b_6_B = ttk.Button(root, text="SOL 6 B", command=solution_6_B)
+b_6_B.grid(row=10, column=1)
 
 
 root.mainloop()
