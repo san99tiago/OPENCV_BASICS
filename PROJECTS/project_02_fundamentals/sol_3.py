@@ -62,8 +62,7 @@ def main():
     img_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
     # Apply a treshold to binarize the image
-    retval, img_binarized = cv.threshold(img, 200, 255, cv.THRESH_BINARY)
-    img_binarized = img_binarized[:,:,0]  # Pick only one of the channels
+    retval, img_binarized = cv.threshold(img_gray, 200, 255, cv.THRESH_BINARY)
 
     # Main function to count the amount of vertical pieces (and distance)
     count_pieces_and_distance(img_binarized)
