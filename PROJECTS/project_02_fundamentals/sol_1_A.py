@@ -7,11 +7,11 @@ import os
 
 # Values where the limits for the HSV filters-trackbars will start
 HH = 255
-HL = 47
-SH = 255
-SL = 30
+HL = 0
+SH = 197
+SL = 0
 VH = 255
-VL = 30
+VL = 0
 
 
 def get_imgs_folder_path():
@@ -34,23 +34,13 @@ def nothing(_):
 def apply_HSV_filters(img, HL, HH, SL, SH, VL, VH ):
     h, w = img.shape[:2]
 
-    # Get the three specific "H", "S", "V" img channels (to apply filters)
-    imgHSV_H = imgHSV[:, :, 0]
-    imgHSV_S = imgHSV[:, :, 1]
-    imgHSV_V = imgHSV[:, :, 2]
+    # Get specific limits for HSV filter
+    HSV_H = np.array([HH, SH, VH], np.uint8)
+    HSV_L = np.array([HL, SL, VL], np.uint8)
+
 
     # Apply specific desired filters to each img channels
-    retval, imgHSV_H = cv.threshold(imgHSV_H, HL, HH, cv.THRESH_BINARY)
-    retval, imgHSV_S = cv.threshold(imgHSV_S, SL, SH, cv.THRESH_BINARY)
-    retval, imgHSV_V = cv.threshold(imgHSV_V, VL, VH, cv.THRESH_BINARY)
-    
-    # Mix all channels in the new HSV img
-    imgHSV_new = np.zeros((h, w, 3), np.uint8)
-
-    # More efficient with "splitting-channels"
-    imgHSV_new[:, :, 0] = imgHSV_H
-    imgHSV_new[:, :, 1] = imgHSV_S
-    imgHSV_new[:, :, 2] = imgHSV_V
+    imgHSV_new = cv.inRange(img, HSV_L, HSV_H)
 
     return imgHSV_new
 

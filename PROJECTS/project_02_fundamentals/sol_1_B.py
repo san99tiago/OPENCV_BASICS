@@ -39,11 +39,35 @@ def apply_BGR_filters(img, BL, BH, GL, GH, RL, RH ):
     imgBGR_G = img[:, :, 1]
     imgBGR_R = img[:, :, 2]
 
-    # Apply specific desired filters to each img channels
-    retval, imgBGR_B = cv.threshold(imgBGR_B, BL, BH, cv.THRESH_BINARY)
-    retval, imgBGR_G = cv.threshold(imgBGR_G, GL, GH, cv.THRESH_BINARY)
-    retval, imgBGR_R = cv.threshold(imgBGR_R, RL, RH, cv.THRESH_BINARY)
-    
+    # Apply specific lower and upper RGB filters to Blue channel
+    retval, imgBGR_B_1 = cv.threshold(imgBGR_B, BL, 255, cv.THRESH_BINARY)
+    # cv.imshow("imgBGR_B_1", imgBGR_B_1)
+
+    retval, imgBGR_B_2 = cv.threshold(imgBGR_B, BH, 255, cv.THRESH_BINARY)
+    # cv.imshow("imgBGR_B_2", imgBGR_B_2)
+
+    imgBGR_B_intersection = cv.bitwise_or(imgBGR_B_1, imgBGR_B_2)
+    cv.imshow("imgBGR_B_intersection", imgBGR_B_intersection)
+
+    retval, imgBGR_G_1 = cv.threshold(imgBGR_G, GL, 255, cv.THRESH_BINARY)
+    # cv.imshow("imgBGR_G_1", imgBGR_G_1)
+
+    retval, imgBGR_G_2 = cv.threshold(imgBGR_G, GH, 255, cv.THRESH_BINARY)
+    # cv.imshow("imgBGR_G_2", imgBGR_G_2)
+
+    imgBGR_G_intersection = cv.bitwise_or(imgBGR_G_1, imgBGR_G_2)
+    cv.imshow("imgBGR_G_intersection", imgBGR_G_intersection)
+
+    retval, imgBGR_R_1 = cv.threshold(imgBGR_R, RL, 255, cv.THRESH_BINARY)
+    # cv.imshow("imgBGR_R_1", imgBGR_R_1)
+
+    retval, imgBGR_R_2 = cv.threshold(imgBGR_R, RH, 255, cv.THRESH_BINARY)
+    # cv.imshow("imgBGR_R_2", imgBGR_R_2)
+
+    imgBGR_R_intersection = cv.bitwise_or(imgBGR_R_1, imgBGR_R_2)
+    cv.imshow("imgBGR_R_intersection", imgBGR_R_intersection)
+
+
     # Mix all channels in the new BGR img
     imgBGR_new = np.zeros((h, w, 3), np.uint8)
 
