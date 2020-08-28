@@ -6,12 +6,12 @@ import cv2 as cv
 import os
 
 # Values where the limits for the HSV filters-trackbars will start
-HH = 255
-HL = 0
-SH = 197
-SL = 0
-VH = 255
-VL = 0
+HH = 94
+HL = 11
+SH = 192
+SL = 42
+VH = 221
+VL = 63
 
 
 def get_imgs_folder_path():
@@ -93,7 +93,7 @@ def main():
         VL = cv.getTrackbarPos("VL", "TrackBar")
 
         # Function to return HSV image after filters (before binarizing it)
-        imgHSV_new = apply_HSV_filters(img, HL, HH, SL, SH, VL, VH)
+        imgHSV_new = apply_HSV_filters(imgHSV, HL, HH, SL, SH, VL, VH)
 
         # Keep showing images
         cv.imshow("img_new", imgHSV_new)
