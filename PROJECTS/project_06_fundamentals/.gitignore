@@ -1,0 +1,5 @@
+# Ignore num folder (that contains folders with train imgs)
+num
+
+# Ignore validation folder (that contains folders with imgs to validate)
+validation
