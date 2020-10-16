@@ -1,10 +1,15 @@
 # MAIN MULTILAYER PERCEPTRON TO TRAIN NEURAL NET
 # Santiago Garcia Arango
 
+from extract_characteristics import extract_characteristics
+
 import numpy as np
-import cv2
+import cv2 as cv
 import xlrd
 from time import time
+import os
+import glob
+import random
 
 #Scikit-learn
 from sklearn.model_selection import train_test_split
@@ -16,10 +21,10 @@ from sklearn.metrics import accuracy_score
 #from sklearn.model_selection import cross_val_score
 
 
-def get_current_folder():
-    # Get the path for the folder that this file is located on
-    upper_dir = os.path.dirname(__file__)  # Upper dir
-    return upper_dir
+def get_img_path(img_folder_path, img_name):
+    # Get specific path to the images we will use inside the "imgs" folder
+    img_path = os.path.join(img_folder_path, img_name)
+    return img_path
 
 
 
@@ -53,36 +58,58 @@ def load_xlsx(xlsx):
         elif(sh.cell_value(rowx=i, colx=0)=='9'):
             y.append(9)
     y= np.array(y,np.float32)
-    return x,y
+    return x, y
+
+
 
 
 if __name__ == '__main__':
     # Read main excel document where the characteristics are located
-    book_excel = xlrd.open_workbook("characteristics.xlsx")
+    path_xlsx = os.path.join(os.path.dirname(__file__), "characteristics.xlsx")
+    book_excel = xlrd.open_workbook(path_xlsx)
 
-
-
-    t0 = time()
-    
-    # Cargar datos desde un archivo .xlsx
-    # la función retornará el número de muestras obtenidas y su respectiva clase
+    # Load main excel file with the X and Y matrices strategically
     X, Y = load_xlsx(book_excel)
-    print(len(X), len(Y))
+    print("[len(x), len(Y)] = [{}, {}]".format(len(X), len(Y)))
 
-    #standard_scaler = StandardScaler()
-    #X_SS = standard_scaler.fit_transform(X)
-    
-    # Se separan los datos: un % para el entrenamiento del modelo y otro
-    # para el test
+
+    # Separe data into training and validation
     x1, x2, y1, y2 = train_test_split(X, Y, test_size = 0.3)    
 
-    mlp = MLPClassifier(activation='relu', hidden_layer_sizes=(50,50), max_iter=1000, tol=0.0001)
-    
-    mlp.fit(x1, y1)    
-    
+    # Declare main MLP classifier with its characteristics
+    mlp = MLPClassifier(activation='logistic', hidden_layer_sizes=(50,50), 
+                        max_iter=1000, tol=0.0001)
 
-    print ("accuracy_score: ", mlp.score(x2, y2)*100.0)
-    
-    print ("\n")
-    print("done in %0.16fs" % (time() - t0))
+    # Train the model with the training data
+    mlp.fit(x1, y1)
 
+    # Get the accuracy of the model with the validationo data
+    print ("Accuracy Score: ", mlp.score(x2, y2)*100.0)
+
+
+    # See actual results from training samples...
+    print("ENTER \"F\" TO QUIT")
+    while True:
+        # Get user input to test the MLP
+        user_input = str(input(("\nInsert number to test --> ")))
+
+        # Exit when user presses "F"
+        if user_input == "F":
+            break
+
+        # Get paths for the folder of imgs of selected number
+        current_path = os.path.abspath(os.path.dirname(__file__))
+        numbers_path = os.path.join(current_path, "num", user_input)
+
+        # Vector of all possible paths for the images of current number
+        possible_paths = glob.glob(os.path.join(numbers_path, "*.png"))
+
+        # Select only one image path to test MLP at a time
+        path = random.choice(possible_paths)
+
+        vector_of_characteristics = extract_characteristics(path, "slow")
+
+        print("\nTESTED NUMBER --> ", path)
+        print(mlp.predict([vector_of_characteristics]))
+
+        cv.destroyAllWindows()
