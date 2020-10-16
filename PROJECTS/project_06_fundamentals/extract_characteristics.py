@@ -1,4 +1,4 @@
-# EXTRACT CHARACTERISTICS OF EACH NUMBER
+# EXTRACT CHARACTERISTICS OF EACH NUMBER AND SAVE THEM IN XLSX FILE
 # Santiago Garcia Arango
 
 import cv2 as cv
@@ -26,7 +26,8 @@ def main():
     vector_folders = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
     # Create xlsx workbook to add info
-    workbook = xlsxwriter.Workbook("characteristics.xlsx")
+    path_xlsx = os.path.join(os.path.dirname(__file__), "characteristics.xlsx")
+    workbook = xlsxwriter.Workbook(path_xlsx)
     worksheet = workbook.add_worksheet("chars_1")
 
     row = 0
