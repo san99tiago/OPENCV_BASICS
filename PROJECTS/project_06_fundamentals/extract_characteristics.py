@@ -21,7 +21,8 @@ def get_img_path(img_folder_path, img_name):
     return img_path
 
 
-def extract_characteristics(path):
+def extract_characteristics(path, show_images):
+    # show_images is for showing the process or not
     img = cv.imread(path, 0)
     imgColor = cv.imread(path, 1)
     img = cv.resize(img, (30, 60))
@@ -38,9 +39,15 @@ def extract_characteristics(path):
             # Draw rectangle on top of img
             cv.rectangle(imgColor, (x,y), (x+w, y+h), (255, 0, 0), 2)
 
-            # Show current img and contour for a few seconds
-            cv.imshow("imgColor", imgColor)
-            cv.waitKey(1)
+            if show_images == "fast":
+                # Show current img and contour for a few seconds
+                cv.imshow("imgColor", imgColor)
+                cv.waitKey(1)
+            elif show_images == "slow":
+                # Show current img and contour for until pressed key
+                cv.imshow("imgColor", imgColor)
+                cv.waitKey(0)
+
 
             # Extract characteristics
             area = w*h
@@ -54,12 +61,15 @@ def extract_characteristics(path):
             cX = int(M["m10"] / M["m00"])
             cY = int(M["m01"] / M["m00"])
 
+            # Get specific amount of white pixels from first vertical half
             pixeles_h_2 = 0
             for h_i in range(h//2):
                 for w_i in range(w):
                     if imgBin[h_i, w_i] == 255:
                         pixeles_h_2 = pixeles_h_2 + 1
 
+
+            # Get specific amount of white pixels from first horizontal half
             pixeles_w_2 = 0
             for h_i in range(h):
                 for w_i in range(w//2):
@@ -103,7 +113,7 @@ def main():
         for path in glob.glob(current_path + "/*.png"):
 
             # Main function to extract all characteristics
-            vector_characteristics = extract_characteristics(path)
+            vector_characteristics = extract_characteristics(path, "fast")
 
             # Sometimes the characteristics can't be achieved... avoid error
             if vector_characteristics is not None:
@@ -115,9 +125,8 @@ def main():
                 i = 1
                 row = row + 1
 
+    cv.destroyWindow("imgColor")  # Close last image that is shown
     workbook.close()
-
-
 
 
 if __name__ == "__main__":
