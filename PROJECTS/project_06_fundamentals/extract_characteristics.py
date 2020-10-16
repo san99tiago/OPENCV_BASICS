@@ -69,10 +69,29 @@ def main():
                     M = cv.moments(cont)
                     Hu = cv.HuMoments(M)  # Get Hu moments
 
+                    # Get centroids
+                    cX = int(M["m10"] / M["m00"])
+                    cY = int(M["m01"] / M["m00"])
+
+                    pixeles_h_2 = 0
+                    for h_i in range(h//2):
+                        for w_i in range(w):
+                            if imgBin[h_i, w_i] == 255:
+                                pixeles_h_2 = pixeles_h_2 + 1
+
+                    pixeles_w_2 = 0
+                    for h_i in range(h):
+                        for w_i in range(w//2):
+                            if img[h_i, w_i] == 255:
+                                pixeles_w_2 = pixeles_w_2 + 1
+
+
                     # Create vector with this important information
                     vector_characteristics = np.array([area, areaf,
                                 aspect_relation, perim, Hu[0][0],
-                                Hu[1][0], Hu[2][0]], dtype= np.float)
+                                Hu[1][0], Hu[2][0], Hu[3][0], Hu[4][0],
+                                cX, cY,
+                                pixeles_h_2, pixeles_w_2], dtype= np.float)
 
                     # Write characteristics in Excel document
                     for charac in (vector_characteristics):
