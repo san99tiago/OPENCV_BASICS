@@ -107,9 +107,9 @@ if __name__ == '__main__':
         # Select only one image path to test MLP at a time
         path = random.choice(possible_paths)
 
-        vector_of_characteristics = extract_characteristics(path, "slow")
+        vector_characteristics = extract_characteristics(path, "slow")
 
         print("\nTESTED NUMBER --> ", path)
-        print(mlp.predict([vector_of_characteristics]))
+        print("PREDICTED NUMBER --> ", mlp.predict([vector_characteristics]))
 
         cv.destroyAllWindows()
