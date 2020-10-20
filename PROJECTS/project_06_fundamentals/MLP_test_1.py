@@ -109,6 +109,7 @@ if __name__ == '__main__':
 
         vector_characteristics = extract_characteristics(path, "slow")
 
+
         print("\nTESTED NUMBER --> ", path)
         print("PREDICTED NUMBER --> ", mlp.predict([vector_characteristics]))
 
