@@ -1,6 +1,5 @@
 # :camera: OPENCV PROJECTS :camera:
-Some of my Computer Vision projects run with Python and OpenCV library as main tool.
-
+Some of my Computer Vision projects. The idea of this repository, is to build a solid knowledge in Computer Vision algorithms and concepts. It's developed in Python and mainly with OpenCV and Scikit-learn libraries.
 
 <p align="left">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
