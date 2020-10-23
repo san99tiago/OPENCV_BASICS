@@ -1,5 +1,6 @@
 # :camera: OPENCV PROJECTS :camera:
-Some of my Computer Vision projects. The idea of this repository, is to build a solid knowledge in Computer Vision algorithms and concepts. It's developed in Python and mainly with OpenCV and Scikit-learn libraries.
+Some of my Computer Vision projects run with Python and OpenCV library as main tool.
+
 
 <p align="left">
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -12,7 +13,7 @@ Some of my Computer Vision projects. The idea of this repository, is to build a 
 This repository covers the knowledge and basic concepts of Computer-Vision applications. <br />
 It begins with the necessary programming tools to understand the fundamentals for the development of Computer-Vision solutions. <br />
 Then, it goes into more advanced topics and problem-solving, even with ML approaches. <br />
-The information of this repository is based on many online tutorials and one of my undergraduate classes called "Artificial Vision".<br />
+The information of these repository is based on many online tutorials and one of my undergraduate classes called "Artificial Vision".<br />
 
 
 
@@ -38,18 +39,19 @@ https://www.python.org/
 ### Libraries and Package dependencies
 
 
+* NUMPY <br />
+NumPy is a great resource to work with arrays and concepts of linear algebra. This allows us to work with data and achieve scientific computing
+```
+https://numpy.org/
+```
+
+
 * OPENCV <br />
 OpenCV is an amazing Open Computer Vision Library, that enables great tools, resources and methods to process and work with images. It is closs-platform and has multiple language connections. In these repository we will be working in Python, but you are free to work in your prefered programming language.
 ```
 https://opencv.org/
 ```
 
-
-* NUMPY <br />
-NumPy is a great resource to work with arrays and concepts of linear algebra. This allows us to work with data and achieve scientific computing
-```
-https://numpy.org/
-```
 
 * MATPLOTLIB <br />
 This is a great Python library for creating static, animated and interactive data visualizations in a simple way.
@@ -64,6 +66,13 @@ advantage of working with the classic Tk windows and many libraries that integra
 ```
 https://docs.python.org/3/library/tkinter.html
 ```
+
+* SCIKIT-LEARN <br />
+Scikit-learn is one of the most popular open-source libraries to work with Machine Learning approaches. It has great algorithms for classification, regression, group analysis and many others great techniques.
+```
+https://scikit-learn.org/
+```
+
 
 
 ## Usage :pencil2:
