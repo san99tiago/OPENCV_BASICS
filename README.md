@@ -2,6 +2,13 @@
 Some of my Computer Vision projects run with Python and OpenCV library as main tool.
 
 
+<p align="left">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://github.com/san99tiago/OPENCV_BASICS/blob/master/PROJECTS/project_00_fundamentals/imgs/repo_GIF_eye.gif" width="30%" height="30%"/>
+</p>
+
+
+
 # COMPUTER VISION BASICS :closed_book: :green_book: :blue_book:
 This repository covers the knowledge and basic concepts of Computer-Vision applications. <br />
 It begins with the necessary programming tools to understand the fundamentals for the development of Computer-Vision solutions. <br />
