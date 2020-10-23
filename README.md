@@ -12,7 +12,7 @@ Some of my Computer Vision projects. The idea of this repository, is to build a 
 This repository covers the knowledge and basic concepts of Computer-Vision applications. <br />
 It begins with the necessary programming tools to understand the fundamentals for the development of Computer-Vision solutions. <br />
 Then, it goes into more advanced topics and problem-solving, even with ML approaches. <br />
-The information of these repository is based on many online tutorials and one of my undergraduate classes called "Artificial Vision".<br />
+The information of this repository is based on many online tutorials and one of my undergraduate classes called "Artificial Vision".<br />
 
 
 
