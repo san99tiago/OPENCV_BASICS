@@ -1,8 +1,10 @@
 # MAIN MULTILAYER PERCEPTRON TO TRAIN NEURAL NET
 # Santiago Garcia Arango
 
+# My other modules
 import ExtractCharacteristics as EXCHAR
 
+# Main modules for arrays, excel, image processing, file-handling
 import numpy as np
 import cv2 as cv
 import xlrd
@@ -102,7 +104,7 @@ class MulilayerPerceptron:
 
             # Get paths for the folder of imgs of selected number
             current_path = os.path.abspath(os.path.dirname(__file__))
-            numbers_path = os.path.join(current_path, "num", user_input)
+            numbers_path = os.path.join(current_path, "training_imgs", user_input)
 
             # Vector of all possible paths for the images of current number
             possible_paths = glob.glob(os.path.join(numbers_path, "*.png"))
@@ -113,7 +115,6 @@ class MulilayerPerceptron:
             image = cv.imread(path, 0)
 
             chars = EXCHAR.ExtractCharacteristics(image)
-
             vector_characteristics = chars.get_characteristics("fast")
 
             print("\nTESTED --> ", path)
