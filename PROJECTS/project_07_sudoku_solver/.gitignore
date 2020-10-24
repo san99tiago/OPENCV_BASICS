@@ -1,2 +1,6 @@
-# Ignore image file for training MLP (about 1000 imgs)
+# Ignore image file for pretty images for training the MLP
 num
+
+
+# Ignore image file for my_screenshot images for training the MLP
+training_imgs
