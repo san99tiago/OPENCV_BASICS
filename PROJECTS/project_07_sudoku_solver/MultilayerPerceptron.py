@@ -79,8 +79,8 @@ class MulilayerPerceptron:
         x1, x2, y1, y2 = train_test_split(self.X, self.Y, test_size = 0.3)    
 
         # Declare main MLP classifier with its characteristics
-        self.mlp = MLPClassifier(activation='logistic', 
-            hidden_layer_sizes=(50,50), max_iter=1000, tol=0.0001)
+        self.mlp = MLPClassifier(activation='tanh', 
+            hidden_layer_sizes=(200,200), max_iter=10000, tol=0.0001)
 
         # Train the model with the training data
         self.mlp.fit(x1, y1)
