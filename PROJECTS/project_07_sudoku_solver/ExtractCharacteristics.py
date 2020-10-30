@@ -52,7 +52,7 @@ class ExtractCharacteristics:
                 new_contours, new_hie = cv.findContours(img_cropped, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
                 for new_cont in new_contours:
                     x_new, y_new, w_new, h_new = cv.boundingRect(new_cont)
-                    if (cv.contourArea(cont) > 20):
+                    if (cv.contourArea(new_cont) > 100):
 
                         check_correct_contour = check_correct_contour + 1
 
@@ -106,13 +106,49 @@ class ExtractCharacteristics:
                                 if img_cropped[h_i, w_i] == 255:
                                     pixeles_w_2 = pixeles_w_2 + 1
 
+                        # Get extra characteristics for more differences
+                        vertical_pixels_middle_left = 0
+                        for w_i in range(w_new):
+                            if img_cropped[h_new//2 - 3, w_i] == 255:
+                                vertical_pixels_middle_left = vertical_pixels_middle_left + 1
+
+                        # Get extra characteristics for more differences
+                        vertical_pixels_middle_right = 0
+                        for w_i in range(w_new):
+                            if img_cropped[h_new//2 + 3, w_i] == 255:
+                                vertical_pixels_middle_right = vertical_pixels_middle_right + 1
+
+                        # Get extra characteristics for more differences
+                        horizontal_pixels_middle_up = 0
+                        for h_i in range(h_new):
+                            if img_cropped[h_i, w_new//2 - 10] == 255:
+                                horizontal_pixels_middle_up = horizontal_pixels_middle_up + 1
+
+                        # Get extra characteristics for more differences
+                        horizontal_pixels_middle_down = 0
+                        for h_i in range(h_new):
+                            if img_cropped[h_i, w_new//2 + 10] == 255:
+                                horizontal_pixels_middle_down = horizontal_pixels_middle_down + 1
+
+                        if img_cropped[50,10] == 255:
+                            strategic_pixel_1 = 1
+                        else:
+                            strategic_pixel_1 = 0
+
+
+
 
                         # Create vector with this important information
-                        vector_characteristics = np.array([area, areaf,
-                                    aspect_relation, perim, Hu[0][0],
-                                    Hu[1][0], Hu[2][0], Hu[3][0], Hu[4][0],
+                        vector_characteristics = np.array([areaf,
+                                    perim, Hu[0][0],
+                                    Hu[1][0], Hu[2][0], Hu[3][0],
                                     cX, cY,
-                                    pixeles_h_2, pixeles_w_2], dtype= np.float)
+                                    pixeles_h_2, pixeles_w_2,
+                                    vertical_pixels_middle_left,
+                                    vertical_pixels_middle_right,
+                                    horizontal_pixels_middle_up,
+                                    horizontal_pixels_middle_down,
+                                    strategic_pixel_1], dtype= np.float)
 
                 # Only return vector when the contours got the correct characteristics
                 if check_correct_contour == 0:
