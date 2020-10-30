@@ -32,6 +32,8 @@ class ExtractCharacteristics:
         img_folder_path = os.path.abspath(os.path.join(upper_dir, folder_name))
         return img_folder_path
 
+    def find_main_contour(self, img):
+        pass
 
     def get_characteristics(self, show_images):
         check_correct_contour = 0
@@ -46,7 +48,7 @@ class ExtractCharacteristics:
                 if show_images == "fast":
                     # Show current img and contour for a few seconds
                     cv.imshow("img", self.imgColor)
-                    cv.waitKey(1)
+                    cv.waitKey(50)
                 elif show_images == "slow":
                     # Show current img and contour for until pressed key
                     cv.imshow("img", self.imgColor)
