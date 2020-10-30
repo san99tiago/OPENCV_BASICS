@@ -32,70 +32,93 @@ class ExtractCharacteristics:
         return img_folder_path
 
 
-
-    def find_main_contour(self, img):
-        pass
-
     def get_characteristics(self, show_images):
         check_correct_contour = 0
         for cont in self.contours:
             x, y, w, h = cv.boundingRect(cont)
-            
-            if (cv.contourArea(cont) > 50):
-                check_correct_contour = check_correct_contour + 1
-                # Draw rectangle on top of img
-                cv.rectangle(self.imgColor, (x,y), (x+w, y+h), (255, 0, 0), 2)
 
-                if show_images == "fast":
-                    # Show current img and contour for a few seconds
-                    cv.imshow("img", self.imgColor)
-                    cv.waitKey(50)
-                elif show_images == "slow":
-                    # Show current img and contour for until pressed key
-                    cv.imshow("img", self.imgColor)
-                    cv.waitKey(0)
+            # Validate big area contour and NOT EDGE OF SUDOKU contour
+            if ((cv.contourArea(cont) > 20) and (cont[0, 0, 0]>4) and 
+                (cont[0, 0, 0]<26) and (cont[0, 0, 1]>4) and
+                (cont[0, 0, 1]<26)):
+
+                # Only get real image when finding "correct number"
+                img_cropped = self.imgBin[y:y+h,x:x+w]
+                img_cropped = cv.resize(img_cropped, (30, 60))
+                img_cropped_color = cv.cvtColor(img_cropped, cv.COLOR_GRAY2BGR)
 
 
-                # Extract characteristics
-                area = w*h
-                areaf = cv.contourArea(cont)
-                aspect_relation = w/h
-                perim = cv.arcLength(cont, 1)
-                M = cv.moments(cont)
-                Hu = cv.HuMoments(M)  # Get Hu moments
+                # Now that it's a real number contour, find new contours
+                new_contours, new_hie = cv.findContours(img_cropped, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
+                for new_cont in new_contours:
+                    x_new, y_new, w_new, h_new = cv.boundingRect(new_cont)
+                    if (cv.contourArea(cont) > 20):
 
-                # Get centroids
-                cX = int(M["m10"] / M["m00"])
-                cY = int(M["m01"] / M["m00"])
+                        check_correct_contour = check_correct_contour + 1
 
-                # Get specific amount of white pixels from first vertical half
-                pixeles_h_2 = 0
-                for h_i in range(h//2):
-                    for w_i in range(w):
-                        if self.imgBin[h_i, w_i] == 255:
-                            pixeles_h_2 = pixeles_h_2 + 1
+                        # Draw rectangle on top of img
+                        cv.rectangle(self.imgColor, (x,y), (x+w, y+h), (255, 0, 0), 2)
+                        cv.rectangle(img_cropped_color, (x_new,y_new), (x_new+w_new, y_new+h_new), (255, 0, 0), 2)
+
+                        if show_images == "fast":
+                            # Show current img and contour for a few seconds
+                            cv.imshow("img", self.imgColor)
+                            cv.waitKey(100)
+                            cv.destroyWindow("img")
+                            cv.imshow("img_new", img_cropped_color)
+                            cv.waitKey(100)
+                            cv.destroyWindow("img_new")
+
+                        elif show_images == "slow":
+                            # Show current img and contour for until pressed key
+                            cv.imshow("img", self.imgColor)
+                            cv.waitKey(0)
+                            cv.destroyWindow("img")
+                            cv.imshow("img_new", img_cropped_color)
+                            cv.waitKey(0)
+                            cv.destroyWindow("img_new")
 
 
-                # Get specific amount of white pixels from first horizontal half
-                pixeles_w_2 = 0
-                for h_i in range(h):
-                    for w_i in range(w//2):
-                        if self.imgBin[h_i, w_i] == 255:
-                            pixeles_w_2 = pixeles_w_2 + 1
+                        # Extract characteristics
+                        area = w_new*h_new
+                        areaf = cv.contourArea(new_cont)
+                        aspect_relation = w_new/h_new
+                        perim = cv.arcLength(new_cont, 1)
+                        M = cv.moments(new_cont)
+                        Hu = cv.HuMoments(M)  # Get Hu moments
+
+                        # Get centroids
+                        cX = int(M["m10"] / M["m00"])
+                        cY = int(M["m01"] / M["m00"])
+
+                        # Get specific amount of white pixels from first vertical half
+                        pixeles_h_2 = 0
+                        for h_i in range(h_new//2):
+                            for w_i in range(w_new):
+                                if img_cropped[h_i, w_i] == 255:
+                                    pixeles_h_2 = pixeles_h_2 + 1
 
 
-                # Create vector with this important information
-                vector_characteristics = np.array([area, areaf,
-                            aspect_relation, perim, Hu[0][0],
-                            Hu[1][0], Hu[2][0], Hu[3][0], Hu[4][0],
-                            cX, cY,
-                            pixeles_h_2, pixeles_w_2], dtype= np.float)
+                        # Get specific amount of white pixels from first horizontal half
+                        pixeles_w_2 = 0
+                        for h_i in range(h_new):
+                            for w_i in range(w_new//2):
+                                if img_cropped[h_i, w_i] == 255:
+                                    pixeles_w_2 = pixeles_w_2 + 1
 
-        # Only return vector when the contours got the correct characteristics
-        if check_correct_contour == 0:
-            return None
-        else:
-            return vector_characteristics
+
+                        # Create vector with this important information
+                        vector_characteristics = np.array([area, areaf,
+                                    aspect_relation, perim, Hu[0][0],
+                                    Hu[1][0], Hu[2][0], Hu[3][0], Hu[4][0],
+                                    cX, cY,
+                                    pixeles_h_2, pixeles_w_2], dtype= np.float)
+
+                # Only return vector when the contours got the correct characteristics
+                if check_correct_contour == 0:
+                    return None
+                else:
+                    return vector_characteristics
 
 
 # ----------------------TEST CHARACTERISTICS EXTRACTION ----------------------
@@ -105,7 +128,7 @@ if __name__ == "__main__":
     image = cv.imread(filename, 0)
 
     chars = ExtractCharacteristics(image)
-    result_vector = chars.get_characteristics("fast")
+    result_vector = chars.get_characteristics("slow")
     print(result_vector)
     
     cv.waitKey(0)
