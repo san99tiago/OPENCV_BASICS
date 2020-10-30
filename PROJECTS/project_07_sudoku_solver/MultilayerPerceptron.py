@@ -79,7 +79,7 @@ class MulilayerPerceptron:
         x1, x2, y1, y2 = train_test_split(self.X, self.Y, test_size = 0.3)    
 
         # Declare main MLP classifier with its characteristics
-        self.mlp = MLPClassifier(activation='tanh', 
+        self.mlp = MLPClassifier(activation='logistic', 
             hidden_layer_sizes=(200,200), max_iter=10000, tol=0.0001)
 
         # Train the model with the training data
@@ -115,7 +115,7 @@ class MulilayerPerceptron:
             image = cv.imread(path, 0)
 
             chars = EXCHAR.ExtractCharacteristics(image)
-            vector_characteristics = chars.get_characteristics("fast")
+            vector_characteristics = chars.get_characteristics("slow")
 
             print("\nTESTED --> ", path)
             print("PREDICTED --> ", self.mlp.predict([vector_characteristics]))
