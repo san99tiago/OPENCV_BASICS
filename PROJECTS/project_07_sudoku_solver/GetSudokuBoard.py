@@ -8,7 +8,7 @@ import MultilayerPerceptron as MyMLP
 
 # Main modules for arrays, excel, image processing, file-handling
 import cv2 as cv
-import numpy as np
+import numpy as np 
 import xlsxwriter
 import glob
 import os
