@@ -37,7 +37,7 @@ def write_characteristics(xlsx_filename):
             # Call main method to extract all characteristics
             image = cv.imread(path, 0)
             chars = EXCHAR.ExtractCharacteristics(image)
-            vector_characteristics = chars.get_characteristics("fast")
+            vector_characteristics = chars.get_characteristics("not_slow")
 
             # Sometimes the characteristics can't be achieved... avoid error
             if vector_characteristics is not None:
