@@ -18,7 +18,7 @@ def main(image_relative_path):
     image_relative_path = os.path.join(CURRENT_FOLDER, image_relative_path)
     image = cv.imread(image_relative_path)
     if image is None:
-        print("ERROR: Image did not load.")
+        print("ERROR: Image did not load correctly.")
         return False
 
     gray_image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
@@ -26,14 +26,14 @@ def main(image_relative_path):
     # Detect faces in the image (vector of faces with rectangle dimensions)
     faces = faceCascade.detectMultiScale(
         gray_image,
-        scaleFactor=1.2,
+        scaleFactor=1.15,
         minNeighbors=5,
         minSize=(30, 30),
         flags = cv.CASCADE_SCALE_IMAGE
     )
 
-    # print(faces)
-    print("Found {0} faces!".format(len(faces)))
+    print(faces)
+    print("Found {0} faces in given image!".format(len(faces)))
 
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
@@ -45,7 +45,7 @@ def main(image_relative_path):
 
 if __name__ == "__main__":
     # TEST 1
-    image_relative_path = os.path.join("test_imgs", "picture0.PNG")
+    image_relative_path = os.path.join("test_imgs", "picture0.jpg")
     print(image_relative_path)
     main(image_relative_path)
 
