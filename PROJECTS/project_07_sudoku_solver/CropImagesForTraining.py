@@ -14,7 +14,7 @@ def get_imgs_folder_path():
 
 
 def get_img_path(img_folder_path, img_name):
-    # Get specific path to the images we will use inside the "imgs" folder
+    # Get specific path to the images we will use inside the "imgs" folderq
     img_path = os.path.join(img_folder_path, img_name)
     return img_path
 
@@ -49,7 +49,7 @@ def mouse_click(event, x, y, flags, param):
 
 def main():
     # Get the paths for the images
-    img_path = get_img_path(get_imgs_folder_path(), "Sudoku_R1.png")
+    img_path = get_img_path(get_imgs_folder_path(), "Sudoku_R2.png")
 
     global img, vector_cropped_imgs
     img = cv.imread(img_path, 1)

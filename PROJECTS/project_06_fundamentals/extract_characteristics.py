@@ -73,7 +73,7 @@ def extract_characteristics(path, show_images):
             pixeles_w_2 = 0
             for h_i in range(h):
                 for w_i in range(w//2):
-                    if img[h_i, w_i] == 255:
+                    if imgBin[h_i, w_i] == 255:
                         pixeles_w_2 = pixeles_w_2 + 1
 
 

@@ -38,9 +38,9 @@ class ExtractCharacteristics:
             x, y, w, h = cv.boundingRect(cont)
 
             # Validate big area contour and NOT EDGE OF SUDOKU contour
-            if ((cv.contourArea(cont) > 20) and (cont[0, 0, 0]>4) and 
-                (cont[0, 0, 0]<26) and (cont[0, 0, 1]>4) and
-                (cont[0, 0, 1]<26)):
+            if ((cv.contourArea(cont) > 10) and (cont[0, 0, 0]>2) and 
+                (cont[0, 0, 0]<27) and (cont[0, 0, 1]>2) and
+                (cont[0, 0, 1]<27)):
 
                 # Only get real image when finding "correct number"
                 img_cropped = self.imgBin[y:y+h,x:x+w]
@@ -52,7 +52,7 @@ class ExtractCharacteristics:
                 new_contours, new_hie = cv.findContours(img_cropped, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
                 for new_cont in new_contours:
                     x_new, y_new, w_new, h_new = cv.boundingRect(new_cont)
-                    if (cv.contourArea(new_cont) > 100):
+                    if (cv.contourArea(new_cont) > 40):
 
                         check_correct_contour = check_correct_contour + 1
 
@@ -97,7 +97,6 @@ class ExtractCharacteristics:
                             for w_i in range(w_new):
                                 if img_cropped[h_i, w_i] == 255:
                                     pixeles_h_2 = pixeles_h_2 + 1
-
 
                         # Get specific amount of white pixels from first horizontal half
                         pixeles_w_2 = 0

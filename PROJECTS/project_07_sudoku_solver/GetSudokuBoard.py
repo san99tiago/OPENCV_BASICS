@@ -29,6 +29,7 @@ class GetSudokuBoard:
         cv.imshow("original_sudoku", self.img_sudoku)
         self.get_each_square()
 
+        cv.destroyAllWindows()
 
 
     def get_imgs_folder_path(self, folder_name):
@@ -58,7 +59,7 @@ class GetSudokuBoard:
         current_w = 0
 
         # Initialize main sudoku matrix to get numbers from each square
-        self.number_matrix = np.zeros((9,9))
+        self.number_matrix = np.zeros((9,9), np.uint8)
 
         # Loop through each square and process the image to get the specific...
         # ... number of that square (to get the matrices of numbers)
@@ -94,7 +95,7 @@ class GetSudokuBoard:
 
     def obtain_number(self, current_img):
         chars = EXCHAR.ExtractCharacteristics(current_img)
-        vector_characteristics = chars.get_characteristics("slow")
+        vector_characteristics = chars.get_characteristics("not_slow")
 
         print(vector_characteristics)
 
