@@ -63,3 +63,9 @@ if __name__ == "__main__":
     image = cv.imread(image_relative_path)
     main(image)
     cv.waitKey(0)
+
+    # TEST 5
+    image_relative_path = os.path.join(CURRENT_FOLDER, "test_imgs", "picture4.png")
+    image = cv.imread(image_relative_path)
+    main(image)
+    cv.waitKey(0)
