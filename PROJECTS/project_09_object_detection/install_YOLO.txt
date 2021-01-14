@@ -1,0 +1,11 @@
+------------------ MAIN TUTORIAL -----------------
+https://www.youtube.com/watch?v=1LCb1PVqzeY
+
+YOLO: "You Only Look Once" approach.
+
+1. Download <weight file> of YOLO (desired version).
+2. Download <configuration file> of YOLO (desired version).
+3. Download <name file> - coco (desired version).
+4. Have OpenCV installed correctly on device.
+
+
