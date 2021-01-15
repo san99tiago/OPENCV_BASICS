@@ -153,8 +153,7 @@ class ObjectDetector:
                 color = colors[i]
 
                 cv.rectangle(self.img, (x, y), (x + w, y + h), color, 2)
-                cv.putText(self.img, "{} : {}".format(label, confidence), (x - 2, y - 10), font, 1, color, 1)
-
+                cv.putText(self.img, "{}:{}".format(label, confidence), (x - 2, y - 10), font, 1, color, 1)
 
         cv.imshow("Final Image", self.img)
         cv.waitKey(0)
