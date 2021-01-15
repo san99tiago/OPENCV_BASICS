@@ -5,6 +5,7 @@
 # --------------------------------------------
 # https://www.youtube.com/watch?v=1LCb1PVqzeY
 # https://www.pyimagesearch.com/2017/11/06/deep-learning-opencvs-blobfromimage-works/
+# https://github.com/pjreddie/darknet
 # --------------------------------------------
 
 
@@ -122,25 +123,38 @@ class ObjectDetector:
                     self.classes_ids.append(class_id)
 
             # This step is to AVOID repeated items (check OpenCV docs)
-            self.indexes = cv.dnn.NMSBoxes(self.boxes, self.confidences, 0.5, 1.5)
+            self.indexes = cv.dnn.NMSBoxes(self.boxes, self.confidences, 0.5, 0.4)
             if len(self.indexes) > 0:
                 self.indexes = self.indexes.flatten()  # Reduce the indexes dimentions
                 # print(self.indexes)
 
-    def show_final_output(self):
+    def show_final_output(self, reduce_repeated=False):
         # Choose OpenCV parameters for the final output
         font = cv.FONT_HERSHEY_COMPLEX_SMALL
         colors = np.random.uniform(0, 255, size=(len(self.boxes), 3))
         # print(colors)
+        # print(len(self.indexes))
+        # print(len(self.boxes))
 
-        for i in self.indexes:
-            x, y, w, h = self.boxes[i]
-            label = str(self.classes[self.classes_ids[i]])
-            confidence = str(round(self.confidences[i], 2))
-            color = colors[i]
+        if reduce_repeated is True:
+            for i in self.indexes:
+                x, y, w, h = self.boxes[i]
+                label = str(self.classes[self.classes_ids[i]])
+                confidence = str(round(self.confidences[i], 2))
+                color = colors[i]
 
-            cv.rectangle(self.img, (x, y), (x + w, y + h), color, 2)
-            cv.putText(self.img, "{} : {}".format(label, confidence), (x, y - 10), font, 1, color, 1)
+                cv.rectangle(self.img, (x, y), (x + w, y + h), color, 2)
+                cv.putText(self.img, "{} : {}".format(label, confidence), (x - 2, y - 10), font, 1, color, 1)
+        else:
+            for i in range(len(self.boxes)):
+                x, y, w, h = self.boxes[i]
+                label = str(self.classes[self.classes_ids[i]])
+                confidence = str(round(self.confidences[i], 2))
+                color = colors[i]
+
+                cv.rectangle(self.img, (x, y), (x + w, y + h), color, 2)
+                cv.putText(self.img, "{} : {}".format(label, confidence), (x - 2, y - 10), font, 1, color, 1)
+
 
         cv.imshow("Final Image", self.img)
         cv.waitKey(0)
@@ -148,5 +162,14 @@ class ObjectDetector:
 
 if __name__ == "__main__":
     # ------------------- TESTS -------------------------
-    detector_1 = ObjectDetector("img_01.jpg")
+    detector = ObjectDetector("img_01.jpg")
+    cv.destroyAllWindows()
+
+    detector = ObjectDetector("img_02.jpg")
+    cv.destroyAllWindows()
+
+    detector = ObjectDetector("img_03.jpg")
+    cv.destroyAllWindows()
+
+    detector = ObjectDetector("img_04.jpg")
     cv.destroyAllWindows()
