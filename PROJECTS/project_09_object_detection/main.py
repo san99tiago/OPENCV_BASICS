@@ -21,16 +21,19 @@ class ObjectDetector:
     """
     Object detector with OpenCV and YOLO-tiny deep neural network
     """
-    def __init__(self, relative_img_path):
+    def __init__(self, img, show_original):
         # Main path to load files
-        self.img_path = os.path.join(current_folder, "imgs", relative_img_path)
         self.config_path = os.path.join(current_folder, "yolov2-tiny.cfg")
         self.weights_path = os.path.join(current_folder, "yolov2-tiny.weights")
         self.names_path = os.path.join(current_folder, "coco.names")
 
-        # Load and show original image
-        self.load_img()
-        self.show_img(self.img, "Original Image")
+        # Show original image
+        self.img = img
+        if show_original is True:
+            self.show_img(self.img, "Original Image")
+
+        # We will need it for the de-normalization after the processing
+        self.height, self.width, _ = self.img.shape
 
         # Load deep neural network files
         self.load_files()
@@ -52,14 +55,6 @@ class ObjectDetector:
         self.classes = []
         with open(self.names_path, "r") as f:
             self.classes = f.read().splitlines()
-
-    def load_img(self):
-        # Load main image and resize it to specific shape
-        self.img = cv.imread(self.img_path)
-        self.img = cv.resize(self.img, (700, 500))
-
-        # We will need it for the de-normalization after the processing
-        self.height, self.width, _ = self.img.shape
 
     def show_img(self, img, img_name, destroy=False):
         # Show given image
@@ -156,19 +151,39 @@ class ObjectDetector:
                 cv.putText(self.img, "{}:{}".format(label, confidence), (x - 2, y - 10), font, 1, color, 1)
 
         cv.imshow("Final Image", self.img)
-        cv.waitKey(0)
-        cv.destroyAllWindows()
+        # cv.waitKey(0)
+        # cv.destroyAllWindows()
 
 if __name__ == "__main__":
     # ------------------- TESTS -------------------------
-    detector = ObjectDetector("img_01.jpg")
+    # Load image and resize it to specific shape
+    img_path = os.path.join(current_folder, "imgs", "img_01.jpg")
+    img = cv.imread(img_path)
+    img = cv.resize(img, (700, 500))
+    detector = ObjectDetector(img, True)
+    cv.waitKey(0)
     cv.destroyAllWindows()
 
-    detector = ObjectDetector("img_02.jpg")
+    # Load image and resize it to specific shape
+    img_path = os.path.join(current_folder, "imgs", "img_02.jpg")
+    img = cv.imread(img_path)
+    img = cv.resize(img, (700, 500))
+    detector = ObjectDetector(img, True)
+    cv.waitKey(0)
     cv.destroyAllWindows()
 
-    detector = ObjectDetector("img_03.jpg")
+    # Load image and resize it to specific shape
+    img_path = os.path.join(current_folder, "imgs", "img_03.jpg")
+    img = cv.imread(img_path)
+    img = cv.resize(img, (700, 500))
+    detector = ObjectDetector(img, True)
+    cv.waitKey(0)
     cv.destroyAllWindows()
 
-    detector = ObjectDetector("img_04.jpg")
+    # Load image and resize it to specific shape
+    img_path = os.path.join(current_folder, "imgs", "img_04.jpg")
+    img = cv.imread(img_path)
+    img = cv.resize(img, (700, 500))
+    detector = ObjectDetector(img, True)
+    cv.waitKey(0)
     cv.destroyAllWindows()
